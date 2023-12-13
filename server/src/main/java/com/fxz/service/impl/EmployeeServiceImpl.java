@@ -6,18 +6,23 @@ import com.fxz.constant.StatusConstant;
 import com.fxz.context.BaseContext;
 import com.fxz.dto.EmployeeDTO;
 import com.fxz.dto.EmployeeLoginDTO;
+import com.fxz.dto.EmployeePageQueryDTO;
 import com.fxz.entity.Employee;
 import com.fxz.exception.AccountLockedException;
 import com.fxz.exception.AccountNotFoundException;
 import com.fxz.exception.PasswordErrorException;
 import com.fxz.mapper.EmployeeMapper;
+import com.fxz.result.PageResult;
 import com.fxz.service.EmployeeService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -60,9 +65,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-    public void save(EmployeeDTO employeeDTO){
+    /**
+     * 新增员工
+     *
+     * @param employeeDTO
+     */
+    public void save(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO,employee);
+        BeanUtils.copyProperties(employeeDTO, employee);
         employee.setStatus(StatusConstant.ENABLE);
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         employee.setCreateTime(LocalDateTime.now());
@@ -72,6 +82,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param employeePageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page =employeeMapper.pageQuery(employeePageQueryDTO);
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+        return new PageResult(total,records);
     }
 
 }
