@@ -37,3 +37,8 @@ fxz:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  alioss:
+    endpoint: ${fxz.alioss.endpoint}
+    access-key-id: ${fxz.alioss.access-key-id}
+    access-key-secret: ${fxz.alioss.access-key-secret}
+    bucket-name: ${fxz.alioss.bucket-name}
