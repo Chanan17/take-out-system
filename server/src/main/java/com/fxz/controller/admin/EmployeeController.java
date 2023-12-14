@@ -11,9 +11,11 @@ import com.fxz.result.Result;
 import com.fxz.service.EmployeeService;
 import com.fxz.utils.JwtUtil;
 import com.fxz.vo.EmployeeLoginVO;
+import com.fxz.vo.EmployeeVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -100,8 +102,26 @@ public class EmployeeController {
     @PostMapping("/status/{status}")
     @ApiOperation("启用或禁用")
     public Result startOrStop(@PathVariable Integer status, Long id) {
-        log.info("启用或禁用员工{}账号,状态:{} {}",id,status);
-        employeeService.startOrStop(status,id);
+        log.info("启用或禁用员工{}账号,状态:{} {}", id, status);
+        employeeService.startOrStop(status, id);
         return Result.success();
+    }
+
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息：{}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工信息")
+    public Result<EmployeeVo> getById(@PathVariable Long id) {
+        log.info("查询员工id:{}}", id);
+        Employee employee = employeeService.getById(id);
+        EmployeeVo employeeVo = new EmployeeVo();
+        BeanUtils.copyProperties(employee,employeeVo);
+        return Result.success(employeeVo);
     }
 }
