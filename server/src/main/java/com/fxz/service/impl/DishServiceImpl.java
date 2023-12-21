@@ -164,12 +164,19 @@ public class DishServiceImpl implements DishService {
         }
     }
 
-    @Override
     public List<Dish> list(Long categoryId) {
-        return null;
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
     }
 
-    @Override
+    /**
+     * 条件查询菜品和口味
+     * @param dish
+     * @return
+     */
     public List<DishVO> listWithFlavor(Dish dish) {
         return null;
     }

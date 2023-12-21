@@ -2,6 +2,7 @@ package com.fxz.controller.admin;
 
 import com.fxz.dto.DishDTO;
 import com.fxz.dto.DishPageQueryDTO;
+import com.fxz.entity.Dish;
 import com.fxz.result.PageResult;
 import com.fxz.result.Result;
 import com.fxz.service.DishService;
@@ -91,4 +92,11 @@ public class DishController {
 
         return Result.success();
     }
+
+    //@GetMapping("/list")
+    //@ApiOperation("根据分类id查询菜品")
+    //public Result<List<Dish>> list(Long categoryId) {
+    //    List<Dish> list = dishService.list(categoryId);
+    //    return Result.success(list);
+    //}
 }
