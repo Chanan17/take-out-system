@@ -1,5 +1,6 @@
 package com.fxz.mapper;
 
+import com.fxz.annotation.AutoFill;
 import com.fxz.dto.SetmealPageQueryDTO;
 import com.fxz.entity.Setmeal;
 import com.fxz.enumeration.OperationType;
@@ -30,7 +31,7 @@ public interface SetmealMapper {
      *
      * @param setmeal
      */
-    //@AutoFill(OperationType.UPDATE)
+    @AutoFill(OperationType.UPDATE)
     void update(Setmeal setmeal);
 
     /**
@@ -38,7 +39,7 @@ public interface SetmealMapper {
      *
      * @param setmeal
      */
-    //@AutoFill(OperationType.INSERT)
+    @AutoFill(OperationType.INSERT)
     void insert(Setmeal setmeal);
 
     /**
