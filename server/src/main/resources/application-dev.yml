@@ -16,3 +16,6 @@ fxz:
     port: 6379
     password:
     database: 1
+  wechat:
+    appid: wxe4245889fcd7fefc
+    secret: 924fce129dbb1a96ba706d99e12517eb

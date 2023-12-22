@@ -37,13 +37,19 @@ logging:
 fxz:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: itcast
+    admin-secret-key: fxzfxz
     # 设置jwt过期时间
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    user-secret-key: fxzuser
+    user-ttl: 7200000
+    user-token-name: authentication
   alioss:
     endpoint: ${fxz.alioss.endpoint}
     access-key-id: ${fxz.alioss.access-key-id}
     access-key-secret: ${fxz.alioss.access-key-secret}
     bucket-name: ${fxz.alioss.bucket-name}
+  wechat:
+    appid: ${fxz.wechat.appid}
+    secret: ${fxz.wechat.secret}
